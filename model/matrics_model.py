@@ -14,13 +14,15 @@ class matrics_model_class():
     def get_matrics_data_model(self,data):
         start=data.get('start')
         end=data.get('end')
-        print("start :",start,"end: ",end)
+        #print("start :",start,"end: ",end)
         if start != None and end != None:
-            query=f"SELECT * FROM matrics_info_table where Time BETWEEN '{start}' and '{end}';"
+            query=f"SELECT * FROM matrics_info_table where Time BETWEEN '{start}' and '{end}'"
             self.cur.execute(query)
             result=self.cur.fetchall()
         else:
-            return json.dumps([{"error": "Please enter start & end","exp":"/metrics?start=<TS>&end=<TS>"}])
+            query=f"SELECT * FROM matrics_info_table"
+            self.cur.execute(query)
+            result=self.cur.fetchall()
 
         if len(result)>0:
             return json.dumps(result, default=str)
