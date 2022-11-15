@@ -7,7 +7,7 @@ class TestAPI(unittest.TestCase):
     def test_case_1(self):
         try:
             resp=req.get(self.url)
-            self.assertEqual(resp.status_code, 2000)
+            self.assertEqual(resp.status_code, 200)
             print("Test 1 Passed:)")
         except:
             print("Test case 1 Failed :(")
