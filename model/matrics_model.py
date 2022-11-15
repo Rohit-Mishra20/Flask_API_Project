@@ -30,6 +30,25 @@ class matrics_model_class():
             return json.dumps([{"error": "Data is not present"}])
 
     def post_matrics_data_model(self,data):
-        #self.cur.execute(f"insert into users(Time,ID_1,ID_2) values({},{},{})")
-        pass
+        try:
+            print(data)
+            for d in data:
+                time_v=d.get("Time")
+                ID_1=d.get("ID_1")
+                ID_2=d.get("ID_2")
+
+                error_record=[{"Error_reason":"Data not load due to incorrect json","Resolution":"Please json should contain key(Time,ID_1,ID_2)"}]
+                if time_v !=None and ID_1 !=None and ID_2 !=None:
+                    print(time_v,ID_1,ID_2)
+                    insert_query=f"insert into matrics_info_table(Time,ID_1,ID_2) values('{time_v}','{ID_1}','{ID_2}')"
+                    self.cur.execute(insert_query)
+                else:
+                    error_record.append(d)
+
+            if len(error_record)==1:
+                return "data posted"
+            else:
+                return json.dumps(error_record)
+        except Exception as e:
+            return "Error in matrics model: "+ str(e)
 
