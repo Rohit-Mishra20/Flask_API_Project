@@ -2,8 +2,8 @@ from flask import Flask
 
 app =  Flask(__name__)
 
-@app.route("/home")
+@app.route("/")
 def home():
-    return "API home path"
+    return "Server is running, to view the data /metrics"
 
 from metrics_controller import *
